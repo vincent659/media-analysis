@@ -4,10 +4,6 @@ const axios = require('axios');
 const MonkeyLearn = require('monkeylearn');
 const Twit = require('twit');
 
-// router.get('/api/passwords', (req, res) => {
-//   res.json('Hi welcome!');
-// });
-
 // Obtaining News Articles
 router.post('/news', async (req, res) => {
   try {
@@ -40,9 +36,6 @@ router.post('/analysis', async (req, res) => {
     let newsContent = [newsArticleContent];
     resultSentiment = await ml.classifiers.classify(model_id, newsContent);
 
-    // console.log(resultSentiment.body[0].classifications);
-
-    // TODO: Needs to take out quotes and double quotes before going in. "response": {"topics": [{"label": "Government",}]} <---what we want. and only top 5
     // TextRazor Keyword Extractor
     const qs = require('qs');
     let data = qs.stringify({
@@ -62,8 +55,6 @@ router.post('/analysis', async (req, res) => {
 
     let resultExtract = await axios(config);
 
-    // console.log(resultExtract.data.response.topics.slice(0,10));
-
     res.json({
       status: true,
       dataSentiment: resultSentiment.body[0].classifications,
@@ -79,7 +70,7 @@ router.post('/analysis', async (req, res) => {
 router.post('/tweets', async (req, res) => {
   try {
     const keyWord = req.body.msg;
-    // console.log(keyWord);
+
     let T = new Twit({
       consumer_key: process.env.CONSUMER_KEY,
       consumer_secret: process.env.CONSUMER_SECRET,
@@ -89,25 +80,13 @@ router.post('/tweets', async (req, res) => {
       strictSSL: true, // optional - requires SSL certificates to be valid.
     });
 
-    // var stream = T.stream('statuses/filter', { track: 'mango' });
-
-    // stream.on('tweet', function (tweet) {
-    //   console.log(tweet);
-    // });
-
     T.get(
       'search/tweets',
-      { q: `${keyWord} since:2020-01-01`, count: 5 },
+      { q: `${keyWord} since:2020-01-01`, count: 10 },
       function (err, data, response) {
-        console.log(data);
         res.json(data);
       }
     );
-    // res.json({
-    //   status: true,
-    //   dataSentiment: resultSentiment.body[0].classifications,
-    //   dataExtract: resultExtract.data.response.topics.slice(0, 10),
-    // });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

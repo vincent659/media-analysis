@@ -3,10 +3,10 @@ import { Footer } from './components/layout/Footer';
 import { Layout } from './components/layout/Layout';
 import { Jumbotron } from './components/Jumbotron';
 import { Navigation } from './components/layout/Navigation';
-import './App.css';
 import SearchNews from './components/SearchNews';
 import NewsItem from './components/NewsItem';
 import SearchTwitter from './components/SearchTwitter';
+import './App.css';
 
 //
 // npm install react-bootstrap bootstrap
@@ -21,11 +21,8 @@ function App() {
   };
 
   const handleExtraKeyword = (keyword) => {
-    // console.log(keyword);
     setExtraKey(keyword);
   };
-
-  // console.log(extraKey);
 
   return (
     <div className="App">
@@ -34,9 +31,9 @@ function App() {
         <Jumbotron />
         <Layout>
           <h6 className="mb-4 text-left">
-            Step 1: Please enter keywords to search for the relevant news.
-            Select an interest news article by clicking 'Show Score' for
-            analysation.
+            Step 1: Please enter a keyword or phrase to perform search for
+            relevant news. Select a desire news article by clicking 'Perform
+            Analysis' to initiate analysation
           </h6>
           {/* User Input */}
           <SearchNews search={handleSubmit} className="mt-5" />

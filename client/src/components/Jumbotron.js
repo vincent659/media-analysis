@@ -34,16 +34,16 @@ export const Jumbotron = () => {
         <Container>
           <h1 className="text-left">Media Analysis</h1>
           <p className="text-justify">
-            In media studies, mass communication, media psychology,
-            communication theory, and sociology, media influence and media
-            effects are topics relating to mass media and media culture's
-            effects on individual or an audience's thoughts, attitudes, and
-            behavior.
+            The media can manipulate, influence, persuade and pressurise
+            society, along with even controlling the world at times in both
+            positive and negative ways; mentally, physically and emotionally.
           </p>
           <p className="text-justify">
-            Whether it is written, televised, or spoken, mass media reaches a
-            large audience. Mass media's role and effect in shaping modern
-            culture are central issues for study of culture.
+            Controversial stories are reported and printed with no reliance of
+            it being fact or not. The public is “meant” to believe everything
+            they’re told and not question it. With it being so easy to say
+            assert an opinion so easily after a few taps, it can lead to
+            investigations and front page headlines.
           </p>
         </Container>
       </Jumbo>
