@@ -1,0 +1,57 @@
+import React, { useState } from 'react';
+import { Footer } from './components/layout/Footer';
+import { Layout } from './components/layout/Layout';
+import { Jumbotron } from './components/Jumbotron';
+import { Navigation } from './components/layout/Navigation';
+import './App.css';
+import SearchNews from './components/SearchNews';
+import NewsItem from './components/NewsItem';
+import SearchTwitter from './components/SearchTwitter';
+
+//
+// npm install react-bootstrap bootstrap
+// npm i axios
+
+function App() {
+  const [text, setText] = useState([]);
+  const [extraKey, setExtraKey] = useState([]);
+
+  const handleSubmit = (data) => {
+    setText(data.data.msg.articles);
+  };
+
+  const handleExtraKeyword = (keyword) => {
+    // console.log(keyword);
+    setExtraKey(keyword);
+  };
+
+  // console.log(extraKey);
+
+  return (
+    <div className="App">
+      <React.Fragment>
+        <Navigation />
+        <Jumbotron />
+        <Layout>
+          <h6 className="mb-4 text-left">
+            Step 1: Please enter keywords to search for the relevant news.
+            Select an interest news article by clicking 'Show Score' for
+            analysation.
+          </h6>
+          {/* User Input */}
+          <SearchNews search={handleSubmit} className="mt-5" />
+          {/* Article Content Card */}
+          {text.slice(0, 5).map((i, index) => (
+            <NewsItem key={index} data={i} extrKeyword={handleExtraKeyword} />
+          ))}
+          {/* Separation Line */}
+          <hr />
+          <SearchTwitter search={extraKey} />
+        </Layout>
+        <Footer />
+      </React.Fragment>
+    </div>
+  );
+}
+
+export default App;
