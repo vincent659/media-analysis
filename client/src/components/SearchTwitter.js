@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 
 const SearchTwitter = (props) => {
   const [tweets, setTweets] = useState([]);
+  const [error, setError] = useState(null);
 
   let temp = props.search;
 
@@ -11,9 +12,19 @@ const SearchTwitter = (props) => {
     e.preventDefault();
     const search = { msg: e.target.value };
 
-    axios.post(`/api/v1/mashup/tweets`, search).then((data) => {
-      setTweets(data.data.statuses);
-    });
+    axios
+      .post(`/api/v1/mashup/tweets`, search)
+      .then((data) => {
+        console.log(data.data.statuses.length);
+        setError(null);
+        // setTweets(data.data.statuses);
+        data.data.statuses.length > 0
+          ? setTweets(data.data.statuses)
+          : setError(e);
+      })
+      .catch((e) => {
+        setError(e);
+      });
   };
 
   return (
@@ -34,7 +45,13 @@ const SearchTwitter = (props) => {
           }
         })}
       </select>
-
+      {error ? (
+        <div className="text-danger">
+          No related tweets found. Please try to use another keyword or phrase
+        </div>
+      ) : (
+        ''
+      )}
       {tweets.map((data, index) => (
         <Card className="my-2" key={index}>
           <Card.Header as="h5">Tweet {index + 1} </Card.Header>

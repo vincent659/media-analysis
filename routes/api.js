@@ -8,6 +8,10 @@ const Twit = require('twit');
 router.post('/news', async (req, res) => {
   try {
     const queryToBeSearched = req.body.msg;
+    // two types of end points 'top-headlines' & 'everything'
+    const endpoint = 'top-headlines';
+    const country = 'us';
+
     // NewsAPI Fetching
     let config = {
       headers: {
@@ -15,7 +19,7 @@ router.post('/news', async (req, res) => {
       },
     };
     const newsArticleRaw = await axios.get(
-      `https://newsapi.org/v2/top-headlines?country=us&q=${queryToBeSearched}&apiKey=${process.env.NEWSAPI_API}`,
+      `https://newsapi.org/v2/${endpoint}?country=${country}&q=${queryToBeSearched}&apiKey=${process.env.NEWSAPI_API}`,
       config
     );
 
@@ -58,7 +62,7 @@ router.post('/analysis', async (req, res) => {
     res.json({
       status: true,
       dataSentiment: resultSentiment.body[0].classifications,
-      dataExtract: resultExtract.data.response.topics.slice(0, 10),
+      dataExtract: resultExtract.data.response.topics.slice(0, 11),
     });
   } catch (err) {
     console.error(err.message);

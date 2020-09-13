@@ -17,7 +17,8 @@ const SearchNews = (props) => {
       axios
         .post(`/api/v1/mashup/news`, search)
         .then((data) => {
-          props.search(data);
+          setError(null);
+          data.data.msg.articles.length > 0 ? props.search(data) : setError(e);
         })
         .catch((e) => {
           setError(e);
