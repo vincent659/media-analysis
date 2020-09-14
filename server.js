@@ -30,9 +30,9 @@ app.use('/api/v1/mashup', require('./routes/api'));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/client/build/index.html'));
+// });
 
 // see if we need to keep this...having a clash with the curret. Ask Sam
 // <=====================>
