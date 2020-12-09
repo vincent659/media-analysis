@@ -43,8 +43,8 @@ router.post('/analysis', async (req, res) => {
     // TextRazor Keyword Extractor
     const qs = require('qs');
     let data = qs.stringify({
-      'extractors': 'topics',
-      'text': newsArticleContent,
+      extractors: 'topics',
+      text: newsArticleContent,
     });
 
     let config = {
